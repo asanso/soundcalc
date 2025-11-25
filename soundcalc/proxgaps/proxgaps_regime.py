@@ -31,6 +31,21 @@ class ProximityGapsRegime:
         """
         Returns an upper bound on the MCA error when applying a random linear combination.
         The coefficients are assumed to be powers here.
+
+        Note: the errors for correlated agreement in the following two cases differ,
+        which is related to the batching method:
+
+        Case 1: we batch with randomness r^0, r^1, ..., r^{num_functions-1}
+        This is what is called batching over parameterized curves in BCIKS20.
+        Here, the error depends on num_functions (called l in BCIKS20), and we find
+        the error in Theorem 6.2.
+
+        Case 2: we batch with randomness r_0 = 1, r_1, r_2, r_{num_functions-1}
+        This is what is called batching over affine spaces in BCIKS20.
+        Here, the error does not depend on num_functions (called l in BCIKS20), and we find
+        the error in Theorem 1.6.
+
+        Then easiest way to see the difference is to compare Theorems 1.5 and 1.6.
         """
         raise NotImplementedError
 
@@ -38,5 +53,7 @@ class ProximityGapsRegime:
         """
         Returns an upper bound on the MCA error when applying a random linear combination.
         The coefficients are assumed to be independent here.
+
+        See the comment above about the difference between powers and linear.
         """
         raise NotImplementedError

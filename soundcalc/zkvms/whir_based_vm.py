@@ -3,6 +3,7 @@ from dataclasses import dataclass
 
 from soundcalc.common.fields import FieldParams, field_element_size_bits
 from soundcalc.common.utils import get_bits_of_security_from_error, get_size_of_merkle_path_bits
+from soundcalc.proxgaps.johnson_bound import JohnsonBoundRegime
 from soundcalc.proxgaps.proxgaps_regime import ProximityGapsRegime
 from soundcalc.proxgaps.unique_decoding import UniqueDecodingRegime
 from soundcalc.zkvms.zkvm import zkVM
@@ -191,7 +192,7 @@ class WHIRBasedVM(zkVM):
 
     def get_security_levels(self) -> dict[str, dict[str, int]]:
 
-        regimes = [UniqueDecodingRegime()] # TODO: add other regimes later
+        regimes = [UniqueDecodingRegime(), JohnsonBoundRegime()]
 
         result = {}
         for regime in regimes:

@@ -5,7 +5,7 @@
 
 > 🔎 **Latest report lives in [`results.md`](results.md)**
 
-A universal soundness calculator across FRI-based zkEVM proof systems and security regimes.
+A universal soundness calculator across hash-based zkEVM proof systems and security regimes.
 
 It aims to answer questions like:
 - "What if RISC0 moves from Babybear⁴ to Goldilocks³?"

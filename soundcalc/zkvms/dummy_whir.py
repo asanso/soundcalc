@@ -21,7 +21,7 @@ class DummyWHIRPreset:
         field = GOLDILOCKS_2
         log_degree = 23
         constraint_degree = 1
-        num_queries = [20,15,12,10,8]
+        num_queries = [80,35,22,12,9]
         num_ood_samples = [2,2,2,2]
 
 
