@@ -215,7 +215,7 @@ class WHIRBasedVM(zkVM):
         # Prover sends the final polynomial. This is a multi-linear polynomial in
         # m_M variables, i.e., it has 2^{m_M} coefficients.
         assert self.log_degrees
-        proof_size += self.log_degrees[-1] * field_size_bits
+        proof_size += (2 ** self.log_degrees[-1]) * field_size_bits
 
         # Decision phase: we query each function f_0,...,f_{M-1} that the prover sent
         # at t_i groups of points. Each group is a set of "folding siblings", also
