@@ -230,13 +230,18 @@ class FRIBasedVM(zkVM):
 
         result = {}
         for regime in regimes:
+            # Get parameters
             id = regime.identifier()
-            fri_levels = self.get_security_levels_for_regime(regime)
             rate = self.rho
             dimension = self.trace_length
+
+            # Compute security levels
+            fri_levels = self.get_security_levels_for_regime(regime)
             delta = regime.get_max_delta(rate, dimension, self.field)
             list_size = regime.get_max_list_size(rate, dimension, self.field, delta)
             proof_system_levels = get_DEEP_ALI_errors(list_size, self)
+
+            # Note down security levels
             total = min(list(fri_levels.values()) + list(proof_system_levels.values()))
             result[id] = fri_levels | proof_system_levels | {"total": total}
 
