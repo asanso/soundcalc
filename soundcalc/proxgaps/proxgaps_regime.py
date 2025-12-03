@@ -1,32 +1,36 @@
+from abc import ABC, abstractmethod
+
 from soundcalc.common.fields import FieldParams
 
 
-class ProximityGapsRegime:
+class ProximityGapsRegime(ABC):
     """
     A class representing a regime for proximity gaps or (mutual) correlated agreement.
     We only consider Reed-Solomon codes here, of dimension k, size n, and rate k/n.
     """
 
+    @abstractmethod
     def identifier(self) -> str:
-        """
-        Returns the name of the regime.
-        """
-        raise NotImplementedError
+        """Returns the name of the regime."""
+        ...
 
+    @abstractmethod
     def get_max_delta(self, rate: float, dimension: int, field: FieldParams) -> float:
         """
         Returns the maximum delta for this regime, based on the rate
         and the dimension of the code.
         """
-        raise NotImplementedError
+        ...
 
+    @abstractmethod
     def get_max_list_size(self, rate: float, dimension: int, field: FieldParams, delta: float) -> int:
         """
         Returns an upper bound on the list size for this regime, and for a given delta
         E.g., unique decoding regime may return 1.
         """
-        raise NotImplementedError
+        ...
 
+    @abstractmethod
     def get_error_powers(self, rate: float, dimension: int, field: FieldParams, num_functions: int) -> float:
         """
         Returns an upper bound on the MCA error when applying a random linear combination.
@@ -47,8 +51,9 @@ class ProximityGapsRegime:
 
         Then easiest way to see the difference is to compare Theorems 1.5 and 1.6.
         """
-        raise NotImplementedError
+        ...
 
+    @abstractmethod
     def get_error_linear(self, rate: float, dimension: int, field: FieldParams) -> float:
         """
         Returns an upper bound on the MCA error when applying a random linear combination.
@@ -56,4 +61,4 @@ class ProximityGapsRegime:
 
         See the comment above about the difference between powers and linear.
         """
-        raise NotImplementedError
+        ...

@@ -70,7 +70,7 @@ def get_DEEP_ALI_errors(L_plus: float, params: "FRIBasedCircuit"):
     return levels
 
 @dataclass(frozen=True)
-class FRIBasedVMConfig:
+class FRIBasedCircuitConfig:
     """
     A configuration of a FRI-based zkVM
     """
@@ -119,7 +119,7 @@ class FRIBasedCircuit(Circuit):
     """
     Models a single circuit that is based on FRI.
     """
-    def __init__(self, config: FRIBasedVMConfig):
+    def __init__(self, config: FRIBasedCircuitConfig):
         """
         Given a config, compute all the parameters relevant for the zkVM.
         """
@@ -368,7 +368,7 @@ class FRIBasedVM(zkVM):
         circuits = []
 
         for section in config.get("circuits", []):
-            cfg = FRIBasedVMConfig(
+            cfg = FRIBasedCircuitConfig(
                 name=section["name"],
                 hash_size_bits=config["zkevm"]["hash_size_bits"],
                 rho=section["rho"],
