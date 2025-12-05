@@ -1,4 +1,3 @@
-from soundcalc.common.fields import FieldParams
 from soundcalc.proxgaps.proxgaps_regime import ProximityGapsRegime
 
 import math
@@ -13,8 +12,17 @@ class JohnsonBoundRegime(ProximityGapsRegime):
     def get_proximity_parameter(self, rate: float, dimension: int) -> float:
         # The proximity parameter defines how close we are to the Johnson Bound 1-sqrt(rate).
         n = dimension / rate
-        # TODO: Using 1/n here is arbitrary. Think more about it.
-        return 1 - math.sqrt(rate) - (1 / n)
+        sqrt_rate = math.sqrt(rate)
+
+        # TODO: Let's use a heuristic to figure out the proximity parameter here.
+        # If we are working over a large field (|F| > 2^15), use a tiny gap from JB: 1/n
+        # Otherwise, use a more conservative rho/20.
+        if self.field.F > 2**150:
+            gap = 1 / n
+        else:
+            gap = rate / 20
+
+        return 1 - sqrt_rate - gap
 
     def get_max_list_size(self, rate: float, dimension: int) -> int:
         # Reed-Solomon codes are (1 - sqrt(rate) - pp, (2*pp*sqrt(rate))⁻¹)-list decodable.
@@ -38,10 +46,10 @@ class JohnsonBoundRegime(ProximityGapsRegime):
         m = math.ceil(sqrt_rate / denominator)
         return max(m, 3)
 
-    def get_error_powers(self, rate: float, dimension: int, field: FieldParams, num_functions: int) -> float:
-        return self.get_error_linear(rate, dimension, field) * (num_functions - 1)
+    def get_error_powers(self, rate: float, dimension: int, num_functions: int) -> float:
+        return self.get_error_linear(rate, dimension) * (num_functions - 1)
 
-    def get_error_linear(self, rate: float, dimension: int, field: FieldParams) -> float:
+    def get_error_linear(self, rate: float, dimension: int) -> float:
         """ Use Theorem 4.2 from BCHKS25 to compute the error"""
 
         sqrt_rate = math.sqrt(rate)
@@ -59,4 +67,4 @@ class JohnsonBoundRegime(ProximityGapsRegime):
         # Now the second one
         second_fraction = m_shifted / sqrt_rate
 
-        return (first_fraction + second_fraction) / field.F
+        return (first_fraction + second_fraction) / self.field.F

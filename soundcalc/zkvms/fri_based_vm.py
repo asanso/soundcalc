@@ -251,7 +251,7 @@ class FRIBasedCircuit(Circuit):
         """
 
         # we consider the following regimes, and for each regime do the analysis
-        regimes = [UniqueDecodingRegime(), JohnsonBoundRegime()]
+        regimes = [UniqueDecodingRegime(self.field), JohnsonBoundRegime(self.field)]
 
         result = {}
         for regime in regimes:
@@ -309,9 +309,9 @@ class FRIBasedCircuit(Circuit):
         dimension = self.trace_length
 
         if self.power_batching:
-            epsilon = regime.get_error_powers(rate, dimension, self.field, self.batch_size)
+            epsilon = regime.get_error_powers(rate, dimension, self.batch_size)
         else:
-            epsilon = regime.get_error_linear(rate, dimension, self.field)
+            epsilon = regime.get_error_linear(rate, dimension)
 
         return epsilon
 
@@ -328,7 +328,7 @@ class FRIBasedCircuit(Circuit):
 
         dimension = self.trace_length / acc_folding_factor
 
-        epsilon = regime.get_error_powers(rate, dimension, self.field, self.FRI_folding_factors[round])
+        epsilon = regime.get_error_powers(rate, dimension, self.FRI_folding_factors[round])
 
         return epsilon
 

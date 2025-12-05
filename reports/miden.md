@@ -24,5 +24,5 @@ How to read this report:
 | regime | total | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | UDR | 38 | 121 | 106 | 100 | 107 | 109 | 111 | 113 | 115 | 117 | 119 | 38 |
-| JBR | -2 | 120 | 105 | -2 | 15 | 27 | 39 | 51 | 63 | 75 | 87 | 56 |
+| JBR | 55 | 120 | 105 | 67 | 74 | 76 | 78 | 80 | 82 | 84 | 86 | 55 |
 | best attack | 96 | — | — | — | — | — | — | — | — | — | — | — |

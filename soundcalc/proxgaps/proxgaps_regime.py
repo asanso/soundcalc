@@ -9,6 +9,9 @@ class ProximityGapsRegime(ABC):
     We only consider Reed-Solomon codes here, of dimension k, size n, and rate k/n.
     """
 
+    def __init__(self, field: FieldParams):
+        self.field = field
+
     @abstractmethod
     def identifier(self) -> str:
         """Returns the name of the regime."""
@@ -31,7 +34,7 @@ class ProximityGapsRegime(ABC):
         ...
 
     @abstractmethod
-    def get_error_powers(self, rate: float, dimension: int, field: FieldParams, batch_size: int) -> float:
+    def get_error_powers(self, rate: float, dimension: int, batch_size: int) -> float:
         """
         Returns an upper bound on the MCA error when applying a random linear combination.
         The coefficients are assumed to be powers here.
@@ -54,7 +57,7 @@ class ProximityGapsRegime(ABC):
         ...
 
     @abstractmethod
-    def get_error_linear(self, rate: float, dimension: int, field: FieldParams) -> float:
+    def get_error_linear(self, rate: float, dimension: int) -> float:
         """
         Returns an upper bound on the MCA error when applying a random linear combination.
         The coefficients are assumed to be independent here.

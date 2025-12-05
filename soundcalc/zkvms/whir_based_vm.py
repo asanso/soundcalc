@@ -239,7 +239,7 @@ class WHIRBasedCircuit(Circuit):
 
     def get_security_levels(self) -> dict[str, dict[str, int]]:
 
-        regimes = [UniqueDecodingRegime(), JohnsonBoundRegime()]
+        regimes = [UniqueDecodingRegime(self.field), JohnsonBoundRegime(self.field)]
 
         result = {}
         for regime in regimes:
@@ -365,9 +365,9 @@ class WHIRBasedCircuit(Circuit):
         dimension = 2 ** self.log_degrees[0]
 
         if self.power_batching:
-            epsilon = regime.get_error_powers(rate, dimension, self.field, self.batch_size)
+            epsilon = regime.get_error_powers(rate, dimension, self.batch_size)
         else:
-            epsilon = regime.get_error_linear(rate, dimension, self.field)
+            epsilon = regime.get_error_linear(rate, dimension)
 
         # grinding
         epsilon *= 2 ** (-self.grinding_bits_batching)
@@ -391,7 +391,7 @@ class WHIRBasedCircuit(Circuit):
         # so we use the error for powers here.
         num_functions = 2
         (rate, dimension) = self.get_code_for_iteration_and_round(iteration, round)
-        epsilon += regime.get_error_powers(rate, dimension, self.field, num_functions)
+        epsilon += regime.get_error_powers(rate, dimension, num_functions)
 
         # grinding
         epsilon *= 2 ** (-self.grinding_bits_folding[iteration][round - 1])
