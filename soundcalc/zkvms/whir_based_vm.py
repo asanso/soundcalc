@@ -534,13 +534,27 @@ class WHIRBasedCircuit(Circuit):
         # Prover sends the initial function (Merkle root)
         proof_size += self.hash_size_bits
 
-        # Initial sumcheck: Prover sends k0 polynomials of degree d
+        # Initial Sumcheck (Iteration 0)
         #
-        # - A degree d polynomial has d+1 coefficients.
-        # - These are sent over the extension field.
-        proof_size += (
-            self.folding_factor * (self.constraint_degree + 1) * ext_field_bits
-        )
+        # The Prover sends 'folding_factor' (k) univariate polynomials.
+        # Each polynomial h(X) has degree 'constraint_degree' (d).
+        #
+        # OPTIMIZATION (Section 3.1 of Gruen 2024: https://eprint.iacr.org/2024/108.pdf):
+        #
+        # Normally, a degree d polynomial requires d+1 coefficients (or evaluations)
+        # to be uniquely determined. However, in the sumcheck protocol, the Verifier
+        # already knows the sum for the current round:
+        #
+        #     claim = h(0) + h(1)
+        #
+        # This linear constraint fixes one degree of freedom. The Prover sends only
+        # d evaluations (e.g., at points 0, 2, ..., d), and the Verifier derives
+        # the missing value h(1) locally via:
+        #
+        #     h(1) = claim - h(0)
+        #
+        # Therefore, we transmit exactly d elements instead of d+1.
+        proof_size += self.folding_factor * self.constraint_degree * ext_field_bits
 
         # Main loop, runs for i = 1 to i = M - 1
         for i in range(1, self.num_iterations):
@@ -559,10 +573,25 @@ class WHIRBasedCircuit(Circuit):
 
             # Sumcheck rounds
             #
-            # Prover sends k polynomials of degree d per iteration.
-            proof_size += (
-                self.folding_factor * (self.constraint_degree + 1) * ext_field_bits
-            )
+            # The Prover sends 'folding_factor' (k) univariate polynomials per iteration.
+            # Each polynomial h(X) has degree 'constraint_degree' (d).
+            #
+            # OPTIMIZATION (Section 3.1 of Gruen 2024: https://eprint.iacr.org/2024/108.pdf):
+            #
+            # Normally, a degree d polynomial requires d+1 coefficients (or evaluations)
+            # to be uniquely determined. However, in the sumcheck protocol, the Verifier
+            # already knows the sum for the current round:
+            #
+            #     claim = h(0) + h(1)
+            #
+            # This linear constraint fixes one degree of freedom. The Prover sends only
+            # d evaluations (e.g., at points 0, 2, ..., d), and the Verifier derives
+            # the missing value h(1) locally via:
+            #
+            #     h(1) = claim - h(0)
+            #
+            # Therefore, we transmit exactly d elements instead of d+1.
+            proof_size += self.folding_factor * self.constraint_degree * ext_field_bits
 
         # Prover sends the final polynomial.
         #
