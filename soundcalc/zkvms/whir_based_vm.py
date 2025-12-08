@@ -367,6 +367,8 @@ class WHIRBasedCircuit(Circuit):
 
         # Calculate the log_degree (m) for every iteration 0..M
         #
+        # This corresponds to the sequence $m_0, ..., m_M$ in the paper.
+        #
         # Formula: m_i = m_0 - i * k
         self.log_degree = config.log_degree
 
