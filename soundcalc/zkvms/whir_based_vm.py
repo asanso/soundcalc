@@ -527,24 +527,30 @@ class WHIRBasedCircuit(Circuit):
         # Initial Sumcheck (Iteration 0)
         #
         # The Prover sends 'folding_factor' (k) univariate polynomials.
-        # Each polynomial h(X) has degree 'constraint_degree' (d).
+        #
+        # NOTATION (WHIR Paper, Construction 5.1):
+        # The paper defines the polynomial h(X) as belonging to F^{<d*}[X].
+        # Let 'd' (`constraint_degree`) represent this bound d*.
+        #
+        # 1. Actual degree: Strictly less than d => max degree is (d - 1).
+        # 2. Naive coefficients: A polynomial of degree (d - 1) needs d coefficients.
         #
         # OPTIMIZATION (Section 3.1 of Gruen 2024: https://eprint.iacr.org/2024/108.pdf):
         #
-        # Normally, a degree d polynomial requires d+1 coefficients (or evaluations)
-        # to be uniquely determined. However, in the sumcheck protocol, the Verifier
-        # already knows the sum for the current round:
+        # In the sumcheck protocol, the Verifier already knows the sum for the current round:
         #
         #     claim = h(0) + h(1)
         #
         # This linear constraint fixes one degree of freedom. The Prover sends only
-        # d evaluations (e.g., at points 0, 2, ..., d), and the Verifier derives
+        # (d-1) evaluations (e.g., at points 0, 2, ..., d-1), and the Verifier derives
         # the missing value h(1) locally via:
         #
         #     h(1) = claim - h(0)
         #
-        # Therefore, we transmit exactly d elements instead of d+1.
-        proof_size += self.folding_factor * self.constraint_degree * ext_field_bits
+        # Therefore, we transmit exactly (d-1) elements instead of d.
+        proof_size += (
+            self.folding_factor * (self.constraint_degree - 1) * ext_field_bits
+        )
 
         # Main loop, runs for i = 1 to i = M - 1
         for i in range(1, self.num_iterations):
@@ -564,24 +570,30 @@ class WHIRBasedCircuit(Circuit):
             # Sumcheck rounds
             #
             # The Prover sends 'folding_factor' (k) univariate polynomials per iteration.
-            # Each polynomial h(X) has degree 'constraint_degree' (d).
+            #
+            # NOTATION (WHIR Paper, Construction 5.1):
+            # The paper defines the polynomial h(X) as belonging to F^{<d}[X].
+            # Let 'd' (`constraint_degree`) represent this bound.
+            #
+            # 1. Actual degree: Strictly less than d => max degree is (d - 1).
+            # 2. Naive coefficients: A polynomial of degree (d - 1) needs d coefficients.
             #
             # OPTIMIZATION (Section 3.1 of Gruen 2024: https://eprint.iacr.org/2024/108.pdf):
             #
-            # Normally, a degree d polynomial requires d+1 coefficients (or evaluations)
-            # to be uniquely determined. However, in the sumcheck protocol, the Verifier
-            # already knows the sum for the current round:
+            # In the sumcheck protocol, the Verifier already knows the sum for the current round:
             #
             #     claim = h(0) + h(1)
             #
             # This linear constraint fixes one degree of freedom. The Prover sends only
-            # d evaluations (e.g., at points 0, 2, ..., d), and the Verifier derives
+            # (d-1) evaluations (e.g., at points 0, 2, ..., d-1), and the Verifier derives
             # the missing value h(1) locally via:
             #
             #     h(1) = claim - h(0)
             #
-            # Therefore, we transmit exactly d elements instead of d+1.
-            proof_size += self.folding_factor * self.constraint_degree * ext_field_bits
+            # Therefore, we transmit exactly (d-1) elements instead of d.
+            proof_size += (
+                self.folding_factor * (self.constraint_degree - 1) * ext_field_bits
+            )
 
         # Prover sends the final polynomial.
         #
