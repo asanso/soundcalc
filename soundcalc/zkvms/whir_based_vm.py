@@ -61,9 +61,6 @@ class WHIRBasedVMConfig:
     # **NOTE**: The rate in WHIR decreases (becomes smaller) with every iteration.
     #
     # This parameter sets only the initial rate ρ.
-    #
-    # As noted in Section 2.1.1:
-    # The rate of the code decreases from ρ to $ρ' := 2^{1-k} ⋅ ρ$.
     log_inv_rate: int
 
     # The total number of WHIR iterations, denoted by $M$ in the paper.
