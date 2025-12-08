@@ -571,26 +571,7 @@ class WHIRBasedCircuit(Circuit):
             #
             # The Prover sends 'folding_factor' (k) univariate polynomials per iteration.
             #
-            # NOTATION (WHIR Paper, Construction 5.1):
-            # The paper defines the polynomial h(X) as belonging to F^{<d}[X].
-            # Let 'd' (`constraint_degree`) represent this bound.
-            #
-            # 1. Actual degree: Strictly less than d => max degree is (d - 1).
-            # 2. Naive coefficients: A polynomial of degree (d - 1) needs d coefficients.
-            #
-            # OPTIMIZATION (Section 3.1 of Gruen 2024: https://eprint.iacr.org/2024/108.pdf):
-            #
-            # In the sumcheck protocol, the Verifier already knows the sum for the current round:
-            #
-            #     claim = h(0) + h(1)
-            #
-            # This linear constraint fixes one degree of freedom. The Prover sends only
-            # (d-1) evaluations (e.g., at points 0, 2, ..., d-1), and the Verifier derives
-            # the missing value h(1) locally via:
-            #
-            #     h(1) = claim - h(0)
-            #
-            # Therefore, we transmit exactly (d-1) elements instead of d.
+            # See above for NOTATION and OPTIMIZATION used here
             proof_size += (
                 self.folding_factor * (self.constraint_degree - 1) * ext_field_bits
             )
