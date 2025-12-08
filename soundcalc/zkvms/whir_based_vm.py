@@ -372,14 +372,14 @@ class WHIRBasedCircuit(Circuit):
         # Formula: m_i = m_0 - i * k
         self.log_degree = config.log_degree
 
-        # Ensure the final polynomial doesn't have negative variables.
+        # Ensure the final polynomial does not end up with a negative number of variables.
         #
         # This implies m_0 >= M * k
         final_reduction = self.num_iterations * self.folding_factor
         assert final_reduction <= config.log_degree, (
             f"Configuration invalid: Reducing {config.log_degree} variables by "
             f"{final_reduction} ({self.num_iterations} iters * {self.folding_factor} fold) "
-            "results in negative variables."
+            "results in a negative number of variables."
         )
 
         self.log_degrees = [
