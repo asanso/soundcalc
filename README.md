@@ -15,6 +15,8 @@ It aims to answer questions like:
 You can run the calculator by doing `python3 -m soundcalc`.
 As a result, the calculator generates / updates reports in [`reports/`](reports/).
 
+Tests can be run with `pytest`.
+
 ## Supported systems
 
 We currently support the following zkEVMs:
