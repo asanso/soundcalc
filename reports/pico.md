@@ -29,12 +29,12 @@ How to read this report:
 - FRI early stop degree: 2
 - Batching: Powers
 
-**Proof Size Estimate:** 4346 KiB, where 1 KiB = 1024 bytes
+**Proof Size Estimate:** 2583.0 KiB, where 1 KiB = 1024 bytes
 
 | regime | total | ALI | DEEP | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 16 | commit round 17 | commit round 18 | commit round 19 | commit round 2 | commit round 20 | commit round 21 | commit round 22 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| UDR | 50 | 113 | 99 | 90 | 91 | 100 | 101 | 102 | 103 | 104 | 105 | 106 | 107 | 108 | 109 | 92 | 110 | 111 | 112 | 93 | 94 | 95 | 96 | 97 | 98 | 99 | 50 |
-| JBR | 54 | 108 | 94 | 68 | 69 | 78 | 79 | 80 | 81 | 82 | 83 | 84 | 85 | 86 | 87 | 70 | 88 | 89 | 90 | 71 | 72 | 73 | 74 | 75 | 76 | 77 | 54 |
+| UDR | 50 | 113 | 99 | 90 | 101 | 110 | 111 | 112 | 113 | 114 | 115 | 116 | 117 | 118 | 119 | 102 | 120 | 121 | 122 | 103 | 104 | 105 | 106 | 107 | 108 | 109 | 50 |
+| JBR | 53 | 108 | 95 | 65 | 76 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 77 | 95 | 96 | 97 | 78 | 79 | 80 | 81 | 82 | 83 | 84 | 53 |
 | best attack | 99 | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
 
 
@@ -53,12 +53,12 @@ How to read this report:
 - FRI early stop degree: 2
 - Batching: Powers
 
-**Proof Size Estimate:** 1816 KiB, where 1 KiB = 1024 bytes
+**Proof Size Estimate:** 1255.0 KiB, where 1 KiB = 1024 bytes
 
 | regime | total | ALI | DEEP | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 16 | commit round 17 | commit round 18 | commit round 19 | commit round 2 | commit round 20 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| UDR | 50 | 115 | 101 | 94 | 95 | 104 | 105 | 106 | 107 | 108 | 109 | 110 | 111 | 112 | 113 | 96 | 114 | 97 | 98 | 99 | 100 | 101 | 102 | 103 | 50 |
-| JBR | 54 | 110 | 96 | 72 | 73 | 82 | 83 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 74 | 92 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 54 |
+| UDR | 50 | 115 | 101 | 94 | 103 | 112 | 113 | 114 | 115 | 116 | 117 | 118 | 119 | 120 | 121 | 104 | 122 | 105 | 106 | 107 | 108 | 109 | 110 | 111 | 50 |
+| JBR | 53 | 110 | 97 | 68 | 78 | 87 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 95 | 96 | 79 | 97 | 80 | 81 | 82 | 83 | 84 | 85 | 86 | 53 |
 | best attack | 99 | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
 
 
@@ -77,12 +77,12 @@ How to read this report:
 - FRI early stop degree: 2
 - Batching: Powers
 
-**Proof Size Estimate:** 1711 KiB, where 1 KiB = 1024 bytes
+**Proof Size Estimate:** 1146.0 KiB, where 1 KiB = 1024 bytes
 
 | regime | total | ALI | DEEP | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 16 | commit round 17 | commit round 18 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| UDR | 50 | 115 | 103 | 96 | 97 | 106 | 107 | 108 | 109 | 110 | 111 | 112 | 113 | 114 | 98 | 99 | 100 | 101 | 102 | 103 | 104 | 105 | 50 |
-| JBR | 54 | 110 | 98 | 74 | 75 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 92 | 76 | 77 | 78 | 79 | 80 | 81 | 82 | 83 | 54 |
+| UDR | 50 | 115 | 103 | 96 | 105 | 114 | 115 | 116 | 117 | 118 | 119 | 120 | 121 | 122 | 106 | 107 | 108 | 109 | 110 | 111 | 112 | 113 | 50 |
+| JBR | 53 | 110 | 99 | 70 | 80 | 89 | 90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 81 | 82 | 83 | 84 | 85 | 86 | 87 | 88 | 53 |
 | best attack | 99 | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
 
 
@@ -101,12 +101,12 @@ How to read this report:
 - FRI early stop degree: 16
 - Batching: Powers
 
-**Proof Size Estimate:** 448 KiB, where 1 KiB = 1024 bytes
+**Proof Size Estimate:** 308.0 KiB, where 1 KiB = 1024 bytes
 
 | regime | total | ALI | DEEP | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 16 | commit round 17 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| UDR | 35 | 115 | 104 | 94 | 95 | 104 | 105 | 106 | 107 | 108 | 109 | 110 | 111 | 96 | 97 | 98 | 99 | 100 | 101 | 102 | 103 | 35 |
-| JBR | 57 | 107 | 96 | 68 | 69 | 78 | 79 | 80 | 81 | 82 | 83 | 84 | 85 | 70 | 71 | 72 | 73 | 74 | 75 | 76 | 77 | 57 |
+| UDR | 35 | 115 | 104 | 94 | 103 | 112 | 113 | 114 | 115 | 116 | 117 | 118 | 119 | 104 | 105 | 106 | 107 | 108 | 109 | 110 | 111 | 35 |
+| JBR | 56 | 105 | 95 | 56 | 66 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 82 | 67 | 68 | 69 | 70 | 71 | 72 | 73 | 74 | 57 |
 | best attack | 99 | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
 
 
@@ -125,11 +125,11 @@ How to read this report:
 - FRI early stop degree: 16
 - Batching: Powers
 
-**Proof Size Estimate:** 422 KiB, where 1 KiB = 1024 bytes
+**Proof Size Estimate:** 281.0 KiB, where 1 KiB = 1024 bytes
 
 | regime | total | ALI | DEEP | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| UDR | 35 | 115 | 106 | 96 | 97 | 106 | 107 | 108 | 109 | 110 | 111 | 98 | 99 | 100 | 101 | 102 | 103 | 104 | 105 | 35 |
-| JBR | 57 | 107 | 98 | 70 | 71 | 80 | 81 | 82 | 83 | 84 | 85 | 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79 | 57 |
+| UDR | 35 | 115 | 106 | 96 | 105 | 114 | 115 | 116 | 117 | 118 | 119 | 106 | 107 | 108 | 109 | 110 | 111 | 112 | 113 | 35 |
+| JBR | 57 | 105 | 97 | 58 | 68 | 77 | 78 | 79 | 80 | 81 | 82 | 69 | 70 | 71 | 72 | 73 | 74 | 75 | 76 | 57 |
 | best attack | 99 | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
 
