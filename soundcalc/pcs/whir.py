@@ -865,9 +865,6 @@ class WHIR(PCS):
         """
         return None
 
-    def get_field(self) -> FieldParams:
-        return self.field
-
     def get_rate(self) -> float:
         return 2 ** (-self.log_inv_rates[0])
 

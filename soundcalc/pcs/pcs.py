@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from soundcalc.common.fields import FieldParams
 from soundcalc.proxgaps.proxgaps_regime import ProximityGapsRegime
 
 
@@ -29,11 +28,6 @@ class PCS(ABC):
     @abstractmethod
     def get_best_attack_security(self) -> int | None:
         """Returns security level based on the best known attack, or None if not applicable."""
-        ...
-
-    @abstractmethod
-    def get_field(self) -> FieldParams:
-        """Returns the field used by this PCS."""
         ...
 
     @abstractmethod

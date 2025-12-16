@@ -190,9 +190,6 @@ class FRI(PCS):
 
         return final_level
 
-    def get_field(self) -> FieldParams:
-        return self.field
-
     def get_rate(self) -> float:
         return self.rho
 

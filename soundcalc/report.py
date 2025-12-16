@@ -12,7 +12,8 @@ from typing import Dict, Any, List, Tuple
 from soundcalc.common.utils import KIB
 from soundcalc.pcs.fri import FRI
 from soundcalc.pcs.whir import WHIR
-from soundcalc.zkvms.zkvm import Circuit, zkVM
+from soundcalc.zkvms.circuit import Circuit
+from soundcalc.zkvms.zkvm import zkVM
 
 
 def _field_label(field) -> str:
