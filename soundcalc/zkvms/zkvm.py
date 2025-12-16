@@ -28,13 +28,27 @@ class zkVM:
         return self._circuits
 
     @classmethod
-    def load_fri_from_toml(cls, toml_path: Path) -> "zkVM":
+    def load_from_toml(cls, toml_path: Path) -> "zkVM":
         """
-        Load a FRI-based VM from a TOML configuration file.
+        Load a VM from a TOML configuration file.
+        Uses the protocol_family field to determine which loader to use.
         """
         with open(toml_path, "r") as f:
             config = toml.load(f)
 
+        protocol_family = config["zkevm"]["protocol_family"]
+        if protocol_family == "FRI_STARK":
+            return cls._load_fri_from_toml(config)
+        elif protocol_family == "WHIR":
+            return cls._load_whir_from_toml(config)
+        else:
+            raise ValueError(f"Unknown protocol_family: {protocol_family}")
+
+    @classmethod
+    def _load_fri_from_toml(cls, config: dict) -> "zkVM":
+        """
+        Load a FRI-based VM from a parsed TOML config dict.
+        """
         field = parse_field(config["zkevm"]["field"])
         circuits = []
 
@@ -64,13 +78,10 @@ class zkVM:
         return cls(config["zkevm"]["name"], circuits=circuits)
 
     @classmethod
-    def load_whir_from_toml(cls, toml_path: Path) -> "zkVM":
+    def _load_whir_from_toml(cls, config: dict) -> "zkVM":
         """
-        Load a WHIR-based VM from a TOML configuration file.
+        Load a WHIR-based VM from a parsed TOML config dict.
         """
-        with open(toml_path, "r") as f:
-            config = toml.load(f)
-
         field = parse_field(config["zkevm"]["field"])
         circuits = []
 
