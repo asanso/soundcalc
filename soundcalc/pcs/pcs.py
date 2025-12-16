@@ -17,7 +17,7 @@ class PCS(ABC):
         Returns PCS-specific security levels for a given regime.
 
         Keys are descriptive labels (e.g., "batching", "commit round 1", "query phase").
-        Values are bits of security (k means error <= 2^{-k}).
+        Values are bits of security.
         """
         ...
 
@@ -27,8 +27,8 @@ class PCS(ABC):
         ...
 
     @abstractmethod
-    def get_best_attack_security(self) -> int:
-        """Returns security level based on the best known attack."""
+    def get_best_attack_security(self) -> int | None:
+        """Returns security level based on the best known attack, or None if not applicable."""
         ...
 
     @abstractmethod

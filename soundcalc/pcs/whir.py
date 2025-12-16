@@ -8,7 +8,6 @@ from soundcalc.common.utils import (
 )
 from soundcalc.pcs.pcs import PCS
 from soundcalc.proxgaps.proxgaps_regime import ProximityGapsRegime
-from soundcalc.proxgaps.unique_decoding import UniqueDecodingRegime
 
 
 @dataclass(frozen=True)
@@ -860,15 +859,11 @@ class WHIR(PCS):
 
         return proof_size
 
-    def get_best_attack_security(self) -> int:
+    def get_best_attack_security(self) -> int | None:
         """
-        Returns security level based on the best known attack.
-
-        For WHIR, we use the UDR analysis as the most conservative estimate.
+        Returns security level based on the best known attack, or None if not applicable.
         """
-        regime = UniqueDecodingRegime(self.field)
-        levels = self.get_pcs_security_levels(regime)
-        return min(levels.values())
+        return None
 
     def get_field(self) -> FieldParams:
         return self.field

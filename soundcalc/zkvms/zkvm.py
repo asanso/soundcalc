@@ -101,7 +101,9 @@ class Circuit:
             all_levels["total"] = min(all_levels.values())
             result[id] = all_levels
 
-        result["best attack"] = self.pcs.get_best_attack_security()
+        best_attack = self.pcs.get_best_attack_security()
+        if best_attack is not None:
+            result["best attack"] = best_attack
 
         return result
 

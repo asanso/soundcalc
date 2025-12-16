@@ -167,7 +167,7 @@ class FRI(PCS):
             rate=self.rho
         )
 
-    def get_best_attack_security(self) -> int:
+    def get_best_attack_security(self) -> int | None:
         """
         Security level based on the best known attack.
 
