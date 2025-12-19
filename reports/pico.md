@@ -6,6 +6,13 @@ How to read this report:
 - Cells show bits of security per component
 - Proof size estimate is only indicative
 
+## zkEVM Overview
+
+| Metric | Value |
+| --- | --- |
+| Final proof size | **281.0 KiB** (circuit: embed) |
+| Final bits of security | **53** (JBR, circuit: riscv) |
+
 ## Circuits
 
 - [riscv](#riscv)

@@ -16,6 +16,58 @@ from soundcalc.zkvms.circuit import Circuit
 from soundcalc.zkvms.zkvm import zkVM
 
 
+def _compute_overview_stats(circuits: list[Circuit]) -> dict[str, Any]:
+    """
+    Compute overview statistics for a list of circuits.
+
+    Returns a dict containing:
+    - final_circuit_name: Name of the final circuit
+    - final_proof_size_kib: Proof size of the final circuit in KiB
+    - best_regime: The regime with highest minimum security (UDR or JBR)
+    - min_security_bits: The minimum bits of security across all circuits
+    - offending_circuit: Name of the circuit with lowest security
+    """
+    if not circuits:
+        return {}
+
+    final_circuit = circuits[-1]
+    final_proof_size_kib = final_circuit.get_proof_size_bits() // KIB
+
+    # Track minimum security per regime
+    regime_mins: dict[str, tuple[int, str]] = {}  # regime -> (min_bits, circuit_name)
+
+    for circuit in circuits:
+        security_levels = circuit.get_security_levels()
+        for regime_name, levels in security_levels.items():
+            # Only consider UDR and JBR, skip "best attack"
+            if regime_name.lower() == "best attack":
+                continue
+
+            if isinstance(levels, dict) and "total" in levels:
+                total_bits = levels["total"]
+                if regime_name not in regime_mins or total_bits < regime_mins[regime_name][0]:
+                    regime_mins[regime_name] = (total_bits, circuit.get_name())
+
+    # Find the regime with the highest minimum security
+    best_regime = None
+    best_min_bits = -1
+    offending_circuit = None
+
+    for regime_name, (min_bits, circuit_name) in regime_mins.items():
+        if min_bits > best_min_bits:
+            best_min_bits = min_bits
+            best_regime = regime_name
+            offending_circuit = circuit_name
+
+    return {
+        "final_circuit_name": final_circuit.get_name(),
+        "final_proof_size_kib": final_proof_size_kib,
+        "best_regime": best_regime,
+        "min_security_bits": best_min_bits,
+        "offending_circuit": offending_circuit,
+    }
+
+
 def _field_label(field) -> str:
     if hasattr(field, "to_string"):
         return field.to_string()
@@ -187,7 +239,18 @@ def build_zkvm_report(zkvm: zkVM, multi_circuit: bool = False) -> str:
     circuits = zkvm.get_circuits()
 
     if multi_circuit and len(circuits) > 1:
-        # Multi-circuit mode: inline all circuits
+        # Multi-circuit mode: add overview and inline all circuits
+        overview = _compute_overview_stats(circuits)
+
+        if overview:
+            lines.append("## zkEVM Overview")
+            lines.append("")
+            lines.append(f"| Metric | Value |")
+            lines.append(f"| --- | --- |")
+            lines.append(f"| Final proof size | **{overview['final_proof_size_kib']:.1f} KiB** (circuit: {overview['final_circuit_name']}) |")
+            lines.append(f"| Final bits of security | **{overview['min_security_bits']}** ({overview['best_regime']}, circuit: {overview['offending_circuit']}) |")
+            lines.append("")
+
         lines.append("## Circuits")
         lines.append("")
         for circuit in circuits:
