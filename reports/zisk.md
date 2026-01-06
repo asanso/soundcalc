@@ -8,10 +8,10 @@ How to read this report:
 
 ## zkVM Overview
 
-| Metric | Value | Notes |
-| --- | --- | --- |
-| Final proof size (worst case) | **282 KiB** | circuit: Final |
-| Final bits of security | **128 bits** | JBR, circuit: Main |
+| Metric | Value | Relevant circuit | Notes |
+| --- | --- | --- | --- |
+| Final proof size (worst case) | **282 KiB** | [Final](#final) | |
+| Final bits of security | **128 bits** | [Main](#main) | Regime: JBR |
 
 ## Circuits
 

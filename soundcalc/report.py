@@ -241,10 +241,14 @@ def build_zkvm_report(zkvm: zkVM, multi_circuit: bool = False) -> str:
         if overview:
             lines.append("## zkVM Overview")
             lines.append("")
-            lines.append(f"| Metric | Value | Notes |")
-            lines.append(f"| --- | --- | --- |")
-            lines.append(f"| Final proof size (worst case) | **{int(overview['final_proof_size_kib'])} KiB** | circuit: {overview['final_circuit_name']} |")
-            lines.append(f"| Final bits of security | **{overview['min_security_bits']} bits** | {overview['best_regime']}, circuit: {overview['offending_circuit']} |")
+            final_circuit = overview['final_circuit_name']
+            final_circuit_link = f"[{final_circuit}](#{final_circuit.lower().replace(' ', '-')})"
+            offending_circuit = overview['offending_circuit']
+            offending_circuit_link = f"[{offending_circuit}](#{offending_circuit.lower().replace(' ', '-')})"
+            lines.append(f"| Metric | Value | Relevant circuit | Notes |")
+            lines.append(f"| --- | --- | --- | --- |")
+            lines.append(f"| Final proof size (worst case) | **{int(overview['final_proof_size_kib'])} KiB** | {final_circuit_link} | |")
+            lines.append(f"| Final bits of security | **{overview['min_security_bits']} bits** | {offending_circuit_link} | Regime: {overview['best_regime']} |")
             lines.append("")
 
         lines.append("## Circuits")
