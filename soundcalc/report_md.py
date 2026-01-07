@@ -6,15 +6,19 @@ This file is a mess.
 
 from __future__ import annotations
 
-import math
+import os
 from dataclasses import dataclass
-from typing import Dict, Any, List, Tuple
+from typing import Any
 
 from soundcalc.common.utils import KIB
 from soundcalc.pcs.fri import FRI
 from soundcalc.pcs.whir import WHIR
 from soundcalc.zkvms.circuit import Circuit
 from soundcalc.zkvms.zkvm import zkVM
+
+
+REPORTS_DIR = "reports"
+SUMMARY_REPORT_NAME = "summary.md"
 
 
 @dataclass
@@ -273,7 +277,7 @@ def _build_security_table(results: dict[str, Any]) -> str:
     return md_table
 
 
-def build_zkvm_report(zkvm: zkVM, multi_circuit: bool = False) -> str:
+def _build_zkvm_report(zkvm: zkVM, multi_circuit: bool = False) -> str:
     """
     Build a markdown report for a single zkVM.
 
@@ -362,7 +366,7 @@ def build_zkvm_report(zkvm: zkVM, multi_circuit: bool = False) -> str:
     return "\n".join(lines)
 
 
-def build_summary_report(zkvms: list[zkVM]) -> str:
+def _build_summary_report(zkvms: list[zkVM]) -> str:
     """
     Build a unified comparison report for multiple zkVMs.
 
@@ -409,3 +413,31 @@ def build_summary_report(zkvms: list[zkVM]) -> str:
     ])
 
     return "\n".join(lines)
+
+
+def generate_and_save_reports(zkvms: list[zkVM]) -> None:
+    """
+    Generate markdown reports for each zkVM and save to reports/ directory.
+    """
+    os.makedirs(REPORTS_DIR, exist_ok=True)
+
+    for zkvm in zkvms:
+        zkvm_name = zkvm.get_name()
+        # ZisK gets multi-circuit mode (all circuits inlined)
+        multi_circuit = (zkvm_name == "ZisK" or zkvm_name == "Pico")
+
+        md = _build_zkvm_report(zkvm, multi_circuit=multi_circuit)
+        filename = f"{zkvm_name.lower().replace(' ', '_')}.md"
+        md_path = os.path.join(REPORTS_DIR, filename)
+
+        with open(md_path, "w", encoding="utf-8") as f:
+            f.write(md)
+
+        print(f"wrote :: {md_path}")
+
+    # Generate unified summary report
+    summary_md = _build_summary_report(zkvms)
+    summary_path = os.path.join(REPORTS_DIR, SUMMARY_REPORT_NAME)
+    with open(summary_path, "w", encoding="utf-8") as f:
+        f.write(summary_md)
+    print(f"wrote :: {summary_path}")
