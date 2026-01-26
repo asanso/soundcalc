@@ -17,9 +17,9 @@ name = "app"
 rho = 0.5
 trace_length = 4194304 # 1 << 22
 air_max_degree = 3
-# This field is used for the DEEP-ALI error calculation, which should actually use the number of constraints to algebraically batch. As such, we report the total number of constraints across all AIRs used in a proof.
-# In fact, DEEP-ALI does algebraic batching of constraints _per AIR_. Here we conservatively take a union bound and report as if batching across all AIRs.
-num_columns = 11366
+# Total number of constraints across all AIRs used in a proof.
+# DEEP-ALI does algebraic batching of constraints _per AIR_. Here we conservatively take a union bound and report as if batching across all AIRs.
+num_constraints = 11366
 # The proof system uses multi-FRI, which batches together polynomials of different heights. Since the `batch_size` parameter is used to calculate the batch-FRI soundness, we report here the maximum, over distinct trace heights, of the number of base field polynomials of that height that are algebraically batched. This corresponds to the highest count of algebraic batching that is done in multi-FRI within a single proof.
 # A trace polynomial over the base field opened at 2 points gets a contribution of 2. A trace polynomial over the extension field opened at 2 points gets a contribution of 8.
 # Note that since this number varies based on the exact configuration of trace dimensions, the reported number is based on a statistical sampling.
@@ -40,7 +40,7 @@ name = "leaf"
 rho = 0.5
 trace_length = 8388608 # 1 << 23
 air_max_degree = 3
-num_columns = 885
+num_constraints = 885
 batch_size = 1798
 opening_points = 2
 power_batching = true
@@ -56,7 +56,7 @@ name = "internal"
 rho = 0.25
 trace_length = 2097152 # 1 << 21
 air_max_degree = 4
-num_columns = 801
+num_constraints = 801
 batch_size = 1472
 opening_points = 2
 power_batching = true
