@@ -13,6 +13,16 @@ It aims to answer questions like:
 You can run the calculator by doing `python3 -m soundcalc`.
 As a result, the calculator generates / updates reports in [`reports/`](reports/).
 
+## Non-Interactive vs. Interactive Security
+At the moment, soundcalc estimates the security level of the *interactive oracle proof (IOP)* underlying hash-based zkEVM proof systems, for the notion of *[round-by-round soundness](https://eprint.iacr.org/2019/1261.pdf)*.
+That is, security levels are shown for each round, and the total security level is the minimum of all these levels. 
+
+For an explanation why the minimum of these levels also corresponds (roughly) to the security level of the non-interactive construction obtained via the [BCS transform](https://eprint.iacr.org/2016/116.pdf), we refer to the section on round-by-round soundness [here](https://eprint.iacr.org/2025/1993.pdf).
+
+Note that this correspondence holds for classical adversaries, but is different for quantum adversaries in the quantum random oracle model, and we refer to [this work](https://eprint.iacr.org/2025/2166.pdf) for details.
+
+We may integrate the compilation to the non-interactive setting (classically and/or quantumly) in the future.
+
 ## Tests
 
 Tests can be run with `pytest`.
