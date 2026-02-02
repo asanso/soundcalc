@@ -19,31 +19,21 @@ class LogUpConfig:
     name: str
     pcs: PCS
     field: FieldParams
-<<<<<<< HEAD:soundcalc/lookups/logup.py
-    # Total columns used for logUP$num_$
-    num_arg_columns: int | None = None
-    # Trace length
-    trace_length: int | None = None
-     # Optimization parameter
-    ell: int = 1
-    #Johnson Bound Regime
-=======
     logup_type: LogUpType
-    
+
     # L: Rows of lookup table L (includes dummy padding)
-    rows_L: int 
+    rows_L: int
     # T: Rows of fixed table T (includes dummy padding)
     rows_T: int
     # S: Number of columns (S=1 for single column case)
     num_columns_S: int = 1
     # M: Number of lookups performed (Aggregation factor)
     num_lookups_M: int = 1
-    # H: Alphabet size 
+    # H: Alphabet size
     alphabet_size_H: int | None = None
-    
+
     # Reduction error for Multivariate (case i or ii)
     reduction_error: float = 0.0
->>>>>>> 3b29563 (refactor: implement univariate and multivariate logup soundness errors):soundcalc/zkvms/lookups.py
     gap_to_radius: float | None = None
 
 class LogUp:
@@ -59,7 +49,7 @@ class LogUp:
         T = self.config.rows_T
         S = self.config.num_columns_S
         M = self.config.num_lookups_M
-        
+
         if self.config.logup_type == LogUpType.UNIVARIATE:
             # Univariate Soundness Error:
             # Single/Multi-column: (L + T) * S / F
@@ -71,11 +61,11 @@ class LogUp:
             # Multivariate Soundness Error:
             # H is max{TS, LS} or padded height
             H = self.config.alphabet_size_H or max(L * S, T * S)
-            
+
             # Single/Multi column (treated as tensors): 2H / F
             # Aggregation: K * 2H / F (where K is num_lookups_M)
             epsilon_sum = (M * 2 * H) / F
-            
+
             # Add reduction error (from multivariate-to-univariate or logup-sound)
             return epsilon_sum + self.config.reduction_error
 
@@ -89,7 +79,7 @@ class LogUp:
         ]
 
         result = {}
-        
+
         # Calculate total error epsilon_sum
         total_error = self._calculate_sum_error()
         logup_bits = get_bits_of_security_from_error(total_error)
@@ -98,10 +88,10 @@ class LogUp:
             rid = regime.identifier()
             # Get PCS security (FRI/KZG/etc)
             levels = self.config.pcs.get_pcs_security_levels(regime)
-            
+
             # logup soundness
             levels["logup_sum"] = logup_bits
-            
+
             # Total security is limited by the weakest link
             levels["total"] = min(levels.values())
             result[rid] = levels

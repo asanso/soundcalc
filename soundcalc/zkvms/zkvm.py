@@ -5,7 +5,7 @@ from pathlib import Path
 import toml
 
 from soundcalc.common.fields import FieldParams, parse_field
-from soundcalc.lookups.logup import LogUp, LogUpConfig
+from soundcalc.lookups.logup import LogUp, LogUpConfig, LogUpType
 from soundcalc.pcs.fri import FRI, FRIConfig
 from soundcalc.pcs.pcs import PCS
 from soundcalc.pcs.whir import WHIR, WHIRConfig
@@ -16,13 +16,19 @@ def _parse_lookups_from_toml(section: dict, pcs: PCS, field: FieldParams) -> lis
     """Parse lookups from a circuit section in the TOML config."""
     lookups = []
     for lookup_section in section.get("lookups", []):
+        logup_type_str = lookup_section.get("logup_type", "univariate")
+        logup_type = LogUpType(logup_type_str)
         lookup_config = LogUpConfig(
             name=lookup_section["name"],
             pcs=pcs,
             field=field,
-            num_arg_columns=lookup_section["num_arg_columns"],
-            trace_length=lookup_section.get("trace_length", pcs.get_dimension()),
-            ell=lookup_section.get("ell", 1),
+            logup_type=logup_type,
+            rows_L=lookup_section["rows_L"],
+            rows_T=lookup_section["rows_T"],
+            num_columns_S=lookup_section.get("num_columns_S", 1),
+            num_lookups_M=lookup_section.get("num_lookups_M", 1),
+            alphabet_size_H=lookup_section.get("alphabet_size_H"),
+            reduction_error=lookup_section.get("reduction_error", 0.0),
             gap_to_radius=lookup_section.get("gap_to_radius", section.get("gap_to_radius")),
         )
         lookups.append(LogUp(lookup_config))

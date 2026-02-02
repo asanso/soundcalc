@@ -46,6 +46,7 @@ grinding_bits_ood = [0, 0, 0]
 
 [[circuits.lookups]]
 name = "dummy_lookup"
-num_arg_columns = 4
-# trace_length defaults to 2^18 from log_degree
-# ell defaults to 1
+logup_type = "univariate"
+rows_L = 262144  # 2^18 from log_degree
+rows_T = 262144  # same as rows_L for this dummy example
+num_columns_S = 4
