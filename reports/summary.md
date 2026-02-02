@@ -8,8 +8,8 @@ How to read this report:
 
 | zkVM | Field | Circuits | Weakest Circuit | UDR (bits) | JBR (bits) | Proof Size |
 |------|-------|----------|-----------------|------------|------------|------------|
+| [Airbender](airbender.md) | M31⁴ | 1 | generalized_circuit | 64 | 63 | 1951 KiB |
 | [DummyWHIR](dummywhir.md) | Goldilocks³ | 2 | main | 30 | 128 | 974 KiB |
-| [Miden](miden.md) | Goldilocks² | 1 | main | 38 | 55 | 149 KiB |
 | [OpenVM](openvm.md) | BabyBear⁴ | 3 | internal | 45 | 58 | 1386 KiB |
 | [Pico](pico.md) | KoalaBear⁴ | 5 | riscv | 35 | 53 | 281 KiB |
 | [ZisK](zisk.md) | Goldilocks³ | 30 | Main | 63 | 128 | 313 KiB |

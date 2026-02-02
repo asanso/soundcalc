@@ -35,10 +35,16 @@ We currently support the following zkEVMs:
 - [OpenVM](reports/openvm.md)
 - [Airbender](reports/airbender.md)
 
+We support the following polynomial commitment schemes:
+- FRI
+- WHIR
+
 We support the following security regimes (see below for explanation of regimes):
 - Unique Decoding Regime (UDR)
 - Johnson Bound Regime (JBR)
 
+We support the following lookup protocols:
+- LogUp
 
 ## Background on Security Regimes
 
