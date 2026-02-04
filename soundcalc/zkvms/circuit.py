@@ -9,7 +9,7 @@ from soundcalc.pcs.pcs import PCS
 from soundcalc.proxgaps.johnson_bound import JohnsonBoundRegime
 from soundcalc.proxgaps.proxgaps_regime import ProximityGapsRegime
 from soundcalc.proxgaps.unique_decoding import UniqueDecodingRegime
-
+from typing import Sequence
 
 @dataclass
 class CircuitConfig:
@@ -17,7 +17,7 @@ class CircuitConfig:
     name: str
     pcs: PCS
     field: FieldParams
-    gap_to_radius: float | None = None
+    gap_to_radius: float | Sequence[float] | None = None
     # Total constraints of AIR table (used in DEEP-ALI soundness)
     num_constraints: int | None = None
     # Maximum constraint degree
@@ -106,9 +106,26 @@ class Circuit:
         If this integer is, say, k, then it means the error for this round is at
         most 2^{-k}.
         """
+        jbr: ProximityGapsRegime | Sequence[ProximityGapsRegime]
+        if isinstance(self.gap_to_radius, (list, tuple)):
+            if not hasattr(self.pcs, "num_iterations"):
+                raise ValueError(
+                    "gap_to_radius schedule requires an iterative PCS (e.g. WHIR)"
+                )
+            num_it = getattr(self.pcs, "num_iterations")
+            assert len(self.gap_to_radius) == num_it, (
+                "gap_to_radius must have length == num_iterations when provided as a list/tuple. "
+                f"Got len(gap_to_radius)={len(self.gap_to_radius)} and num_iterations={num_it}."
+            )
+            jbr = [
+                JohnsonBoundRegime(self.field, gap_to_radius=g) for g in self.gap_to_radius
+            ]
+        else:
+            jbr = JohnsonBoundRegime(self.field, gap_to_radius=self.gap_to_radius)
+
         regimes = [
             UniqueDecodingRegime(self.field),
-            JohnsonBoundRegime(self.field, gap_to_radius=self.gap_to_radius),
+            jbr,
         ]
 
         result = {}
